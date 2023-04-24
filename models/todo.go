@@ -40,7 +40,7 @@ func GetTodoById(id string) (Todo, error) {
 	db, err := db.ConnectToDB()
 
 	var todo Todo
-	err = db.QueryRow("SELECT id, title, description, completed FROM todos WHERE id = $1", id).Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Completed)
+	err = db.QueryRow("SELECT * FROM todos WHERE id = $1", id).Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Completed, &todo.CreatedAt, &todo.UpdatedAt)
 	if err != nil {
 		return Todo{}, err
 	}

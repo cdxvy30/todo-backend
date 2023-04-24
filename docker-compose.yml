@@ -4,6 +4,8 @@ services:
   app:
     build:
       dockerfile: Dockerfile
+    environment:
+      - DBHOST=db
     volumes:
       - .:/app
     working_dir: /app
