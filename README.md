@@ -14,27 +14,30 @@ This is a backend service written in Golang along with PostgreSQL. The goal of t
 
 ### Installation
 1. Clone the repository.
-2. Run `go mod download` to download the dependencies.
-3. Run `go run main.go` to start the service.
-4. Access the application at `http://localhost:8080/`
+2. Execute `init.sql` within `/database` folder in **psql** or **pgAdmin** to create table.
+3. Run `go mod download` to download the dependencies.
+4. Run `go run main.go` to start the service.
+5. Access the application at `http://localhost:8080/todos`
 
 ### Docker (Optional)
 In the project root, run:
 ```
 docker-compose up
 ```
-The web application will be accessible at `http://localhost:8080`.
+The web application will be accessible at `http://localhost:8080/todos`.
 
 ### API Routes
-| Method | Url                 | Description                         |
-| ------ | ------------------- | ----------------------------------- |
-| GET    | /todos              | Get all todo items                  | 
-| GET    | /todos/:id          | Get a specific todo item with ID    |
-| POST   | /todos              | Create a todo item                  |
-| PUT    | /todos/:id          | Update a specific todo item with ID |
-| DELETE | /todos/:id          | Delete a specific todo item with ID |
+- Content-Type: `application/json`
 
-You can test APIs using software like [Postman](https://www.postman.com/).
+  | Method | Url                 | Description                         |
+  | ------ | ------------------- | ----------------------------------- |
+  | GET    | /todos              | Get all todo items                  | 
+  | GET    | /todos/:id          | Get a specific todo item with ID    |
+  | POST   | /todos              | Create a todo item                  |
+  | PUT    | /todos/:id          | Update a specific todo item with ID |
+  | DELETE | /todos/:id          | Delete a specific todo item with ID |
+
+- You can test APIs using software like [Postman](https://www.postman.com/).
 
 ### Request body format of **POST /todos** and **PUT /todos/:id**
 ```
@@ -46,6 +49,15 @@ You can test APIs using software like [Postman](https://www.postman.com/).
 ```
 
 Other request **do not** need a request body.
+
+## Current bug or anything can be improved
+### Bug
+- Timestamp of `created_at` and `updated_at` should be `UTC(+8)` but is `UTC(+0)` in Docker version.
+
+### Need to improved
+- Error message (like accessing the id that does not exist) can be more accurate.
+- Do not implement async/await.
+- Do not use live reloading (like `nodemon`) when developing.
 
 ## License
 Currently has no license.
